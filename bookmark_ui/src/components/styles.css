@@ -1,0 +1,132 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  height: 100vh;
+}
+
+.categories {
+  width: 250px;
+  height: 100vh;
+}
+
+.right {
+  width: 100%;
+}
+
+.card {
+  background: #fff;
+  border-radius: 7px;
+  box-shadow: 0 2px 5px #ccc;
+  padding: 10px;
+  width: 260px;
+  margin: 16px;
+  float: left;
+}
+
+.card p {
+  font-size: 1.1em;
+  margin-bottom: 10px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* three dot button for edit and delete */
+
+.custom-dropdown {
+  position: relative;
+}
+
+.dots-button {
+  background: none;
+  border: none;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.dots-icon {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.dots-button::after {
+  display: none !important; /* Removes Bootstrap's default dropdown arrow */
+}
+
+/* Position dropdown menu below and slightly left */
+.custom-dropdown-menu {
+  transform: translate(
+    2px,
+    40px
+  ) !important; /* Moves the dropdown left (-40px) and down (10px) */
+  left: auto !important;
+  right: 0 !important;
+}
+
+/* Dialog box for adding bookmark */
+
+.dialog-box {
+  border: none;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.dialog-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dialog-form label {
+  font-weight: bold;
+}
+
+.dialog-form input,
+.dialog-form select,
+.dialog-form textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.dialog-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.cancel-btn,
+.add-btn {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background: #ccc;
+}
+
+.add-btn {
+  background: #007bff;
+  color: white;
+}
+
