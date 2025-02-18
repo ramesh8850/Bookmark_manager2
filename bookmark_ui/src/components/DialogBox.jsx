@@ -58,29 +58,32 @@ export default function Dialog({
   };
 
   return (
-    <dialog ref={dialogRef} className="dialog-box" onClose={onClose}>
+    <dialog ref={dialogRef} className="dialog-box rounded-5" onClose={onClose}>
       <div className="dialog-header">
-        <h3>{isEditing ? "Edit Bookmark" : "Add Bookmark"}</h3>
+        <h3 className="fw-semibold">{isEditing ? "Edit Bookmark" : "Add Bookmark"}</h3>
         <button className="close-btn" onClick={onClose}>
           &times;
         </button>
       </div>
 
-      <form onSubmit={handleSubmit} className="dialog-form">
+      <form onSubmit={handleSubmit} className="dialog-form text-start mt-3">
         <label>
           Title:
           <input
+          className="dialog-input rounded-4 mt-2"
             type="text"
             name="title"
             value={formData.title}
             onChange={handleChange}
+            placeholder="Github"
             required
           />
         </label>
 
-        <label>
+        <label className="mt-1">
           URL:
           <input
+          className="dialog-input rounded-4 mt-2"
             type="url"
             name="url"
             value={formData.url}
@@ -89,12 +92,13 @@ export default function Dialog({
           />
         </label>
 
-        <label>
+        <label className="mt-1">
           Category:
           <select
             name="category"
             value={formData.category}
             onChange={handleChange}
+            className="dialog-input rounded-4 mt-2"
           >
             <option value="development">Development</option>
             <option value="design">Design</option>
@@ -102,9 +106,10 @@ export default function Dialog({
           </select>
         </label>
 
-        <label>
+        <label className="mt-1">
           Description:
           <textarea
+          className="dialog-input rounded-4 mt-2"
             name="description"
             value={formData.description}
             onChange={handleChange}
@@ -114,10 +119,10 @@ export default function Dialog({
         </label>
 
         <div className="dialog-footer">
-          <button type="button" className="cancel-btn" onClick={onClose}>
+          <button type="button" className="cancel-btn rounded-5" onClick={onClose}>
             Cancel
           </button>
-          <button type="submit" className="add-btn">
+          <button type="submit" className="add-btn rounded-5" style={{backgroundColor:"darkblue"}}>
             {isEditing ? "Save Changes" : "Add Bookmark"}
           </button>
         </div>

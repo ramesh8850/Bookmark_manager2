@@ -2,26 +2,32 @@
   font-family: sans-serif;
   text-align: center;
   height: 100vh;
+  display: flex;
+  justify-content: center;
 }
 
+.grid{
+  width: 100%;
+  margin: 60px 100px;
+  height: 100vh;
+}
 
+.search-bar{
+  width: 60%;
+}
 
 .card {
   background: #fff;
   border-radius: 7px;
   box-shadow: 0 2px 5px #ccc;
   padding: 10px;
-  width: 260px;
+  width: 300px;
   margin: 16px;
   float: left;
 }
 
-.card p {
-  font-size: 1.1em;
-  margin-bottom: 10px;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-}
+
+
 
 /* three dot button for edit and delete */
 

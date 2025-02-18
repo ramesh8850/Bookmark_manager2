@@ -6,7 +6,7 @@ import Search from "./Search";
 import Bookmark from "./Bookmark";
 import "./styles.css";
 import "bootstrap/dist/css/bootstrap.css";
-import { SignOutButton } from '@clerk/clerk-react';
+import { SignOutButton,useUser } from '@clerk/clerk-react';
 
 function App() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -79,35 +79,58 @@ function App() {
       bookmark.category.toLowerCase().includes(searchQuery)
   );
 
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const { user } = useUser(); // Get the logged-in user
+
+  // Extract the first letter of the user's email
+  const firstLetter = user?.primaryEmailAddress?.emailAddress?.charAt(0).toUpperCase() || "U";
+
   return (
     <div className="App">
+      <div className="container">
+        {/* top menu mar for signout and heading of website */}
+      <div className="header d-flex justify-content-between align-items-center m-3">
+      {/* Left side - Bookmark Manager heading */}
+      <h1 className="fw-semibold">Bookmark Manager</h1>
 
-      <div className="header d-flex justify-content-between align-items-center m-2">
-        {/* Left side - Bookmark Manager heading */}
-        <h1>Bookmark Manager</h1>
+      {/* Right side - Dropdown for Sign Out */}
+      <div className="position-relative">
+        <button
+          className="btn rounded-circle"
+          onClick={() => setShowDropdown(!showDropdown)}
+          style={{backgroundColor:"darkblue",color:"white"}}
+        >
+          {firstLetter}
+        </button>
 
-        {/* Right side - Sign Out button */}
-        <SignOutButton>
-          <button className="btn btn-danger">Sign Out</button>
-        </SignOutButton>
+        {showDropdown && (
+          <div className="dropdown-menu show position-absolute end-0 mt-2 rounded-5" style={{ minWidth: "90px"}} >
+            <SignOutButton>
+              <button className="dropdown-item text-danger text-center">Sign Out</button>
+            </SignOutButton>
+          </div>
+        )}
       </div>
-
-      {/* Header */}
-      <div className="header m-4 d-flex justify-content-between">
-        <h2 className="fw-bolder">Bookmarks</h2>
+    </div>
+        {/* Header */}
+        <div className="search-body d-flex justify-content-start align-items-center mt-5">
+      <div className="search-bar mt-3 d-flex justify-content-center p-2">
+      <Search handleSearch={handleSearch} />
+      </div>
         <button
           onClick={() => {
             setIsEditing(false);
             setIsDialogOpen(true);
             setEditBookmark(null);
           }}
-          className="d-flex justify-content-center align-items-center rounded-4 p-2 gap-2 bg-dark text-white"
+          className="d-flex justify-content-center align-items-center rounded-4 p-2 gap-1 bg-dark text-white col-2 shadow rounded-5"
           type="button"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
+            width="20"
+            height="20"
             fill="currentColor"
             className="bi bi-plus"
             viewBox="0 0 16 16"
@@ -125,12 +148,13 @@ function App() {
           isEditing={isEditing}
           bookmark={editBookmark}
         />
-      </div>
+        </div>
 
 
           {/* Search Bar */}
-          <Search handleSearch={handleSearch} />
-
+          
+        <div className="grid">
+            <div className="body-container shadow  rounded">
           {/* Show filtered bookmarks */}
           {searchQuery ? (
             <div className="bookmark-list">
@@ -176,6 +200,9 @@ function App() {
               ))}
             </div>
           )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
