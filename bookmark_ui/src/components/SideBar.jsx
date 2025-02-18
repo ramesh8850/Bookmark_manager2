@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 
 function SideBar() {
-  const [categories, setCategories] = useState([
+  const categories=[
     { name: "All", count: 12 },
     { name: "Development", count: 5 },
     { name: "Design", count: 3 },
     { name: "Business", count: 4 },
-  ]);
+  ];
   return (
     <div className="categories border p-3">
       <h3 className="d-flex justify-content-between">

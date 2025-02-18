@@ -6,7 +6,13 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:3000", // Allow localhost for local testing
+  methods: "GET, POST, PUT, DELETE", // Allowed methods
+  credentials: true, // If you need cookies or auth headers
+}));
+
+
 app.use(express.json()); // For parsing JSON requests
 
 // **Create a new bookmark**
@@ -65,5 +71,5 @@ app.delete("/bookmarks/:id", async (req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Server running on port http://localhost:${PORT}`);
 });

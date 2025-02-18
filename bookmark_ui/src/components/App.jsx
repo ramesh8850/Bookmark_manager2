@@ -2,18 +2,19 @@ import React, { useState, useEffect } from "react";
 import axios from "axios"; // Import axios
 import Dialog from "./DialogBox";
 import Search from "./Search";
-import SideBar from "./SideBar";
+// import SideBar from "./SideBar";
 import Bookmark from "./Bookmark";
 import "./styles.css";
 import "bootstrap/dist/css/bootstrap.css";
+import { SignOutButton } from '@clerk/clerk-react';
 
-export default function App() {
+function App() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editBookmark, setEditBookmark] = useState(null);
   const [bookmarks, setBookmarks] = useState([]);
 
-  const API_URL = "http://localhost:5000/bookmarks"; // Update with your backend URL
+  const API_URL ="https://backend-bookmark-manager.onrender.com/bookmarks"; // Update with your backend URL
 
   // Fetch bookmarks from backend
   const fetchBookmarks = async () => {
@@ -80,9 +81,20 @@ export default function App() {
 
   return (
     <div className="App">
+
+      <div className="header d-flex justify-content-between align-items-center m-2">
+        {/* Left side - Bookmark Manager heading */}
+        <h1>Bookmark Manager</h1>
+
+        {/* Right side - Sign Out button */}
+        <SignOutButton>
+          <button className="btn btn-danger">Sign Out</button>
+        </SignOutButton>
+      </div>
+
       {/* Header */}
       <div className="header m-4 d-flex justify-content-between">
-        <h1 className="fw-bolder">Bookmarks</h1>
+        <h2 className="fw-bolder">Bookmarks</h2>
         <button
           onClick={() => {
             setIsEditing(false);
@@ -115,12 +127,7 @@ export default function App() {
         />
       </div>
 
-      {/* Grid */}
-      <div className="grid d-flex gap-1 m-4">
-        {/* Sidebar */}
-        <SideBar />
 
-        <div className="right border p-3">
           {/* Search Bar */}
           <Search handleSearch={handleSearch} />
 
@@ -169,8 +176,9 @@ export default function App() {
               ))}
             </div>
           )}
-        </div>
-      </div>
     </div>
   );
 }
+
+
+export default App;
