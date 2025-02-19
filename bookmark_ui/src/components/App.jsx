@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useCallback } from "react";
 import axios from "axios"; // Import axios
 import Dialog from "./DialogBox";
 import Search from "./Search";
@@ -14,27 +14,28 @@ function App() {
   const [editBookmark, setEditBookmark] = useState(null);
   const [bookmarks, setBookmarks] = useState([]);
 
-  const API_URL ="https://backend-bookmark-manager.onrender.com/bookmarks"; // Update with your backend URL
+  const REACT_APP_API_URL=process.env.REACT_APP_API_URL; // Update with your backend URL
 
-  // Fetch bookmarks from backend
-  const fetchBookmarks = async () => {
+  console.log("API URL",REACT_APP_API_URL);
+  // Memoize fetchBookmarks so it doesn't change on every render
+  const fetchBookmarks = useCallback(async () => {
     try {
-      const res = await axios.get(API_URL);
+      const res = await axios.get(REACT_APP_API_URL);
       setBookmarks(res.data);
     } catch (err) {
       console.error("Error fetching bookmarks:", err);
     }
-  };
+  }, [REACT_APP_API_URL]);
 
-  // Use Effect hook to fetch bookmarks initially
+  // Now fetchBookmarks is stable and can be included in the dependency array
   useEffect(() => {
     fetchBookmarks();
-  }, []);
+  }, [fetchBookmarks]);
 
   // Add a new bookmark
   const handleAddBookmark = async (bookmark) => {
     try {
-      const res = await axios.post(API_URL, bookmark);
+      const res = await axios.post(REACT_APP_API_URL, bookmark);
       setBookmarks([...bookmarks, res.data]); // Add new bookmark to state
     } catch (err) {
       console.error("Error adding bookmark:", err);
@@ -44,7 +45,7 @@ function App() {
   // Edit an existing bookmark
   const handleEditBookmark = async (updatedBookmark) => {
     try {
-      await axios.put(`${API_URL}/${updatedBookmark.id}`, updatedBookmark);
+      await axios.put(`${REACT_APP_API_URL}/${updatedBookmark.id}`, updatedBookmark);
       setBookmarks((prevBookmarks) =>
         prevBookmarks.map((bookmark) =>
           bookmark.id === updatedBookmark.id ? updatedBookmark : bookmark
@@ -58,7 +59,7 @@ function App() {
   // Delete a bookmark
   const handleDeleteBookmark = async (id) => {
     try {
-      await axios.delete(`${API_URL}/${id}`);
+      await axios.delete(`${REACT_APP_API_URL}/${id}`);
       setBookmarks(bookmarks.filter((bookmark) => bookmark.id !== id));
     } catch (err) {
       console.error("Error deleting bookmark:", err);

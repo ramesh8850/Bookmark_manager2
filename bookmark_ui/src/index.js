@@ -4,7 +4,7 @@ import { ClerkProvider, RedirectToSignIn, SignedIn, SignedOut} from "@clerk/cler
 import App from "./components/App";
 
 // Import your Publishable Key
-const PUBLISHABLE_KEY ="pk_test_cHJvdmVuLWJpc29uLTc2LmNsZXJrLmFjY291bnRzLmRldiQ";
+const PUBLISHABLE_KEY =process.env.REACT_APP_PUBLISHABLE_KEY;
 
 if (!PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");

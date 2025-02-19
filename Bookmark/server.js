@@ -1,15 +1,29 @@
 import express from "express";
 import cors from "cors";
 import pool from "./db.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://bookmark-manager2.vercel.app",
+  "https://frontend-bookmark-manager.vercel.app"
+];
+
 app.use(cors({
-  origin: "http://localhost:3000", // Allow localhost for local testing
-  methods: "GET, POST, PUT, DELETE", // Allowed methods
-  credentials: true, // If you need cookies or auth headers
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true); // Allow the request
+    } else {
+      callback(new Error("Not allowed by CORS")); // Block the request
+    }
+  },
+  methods: "GET, POST, PUT, DELETE",
+  credentials: true
 }));
 
 
