@@ -28,7 +28,7 @@ function Bookmark(props) {
       <Dropdown.Toggle as="button" className="dots-button border-0 bg-transparent">
         <BsThreeDotsVertical className="dots-icon" />
       </Dropdown.Toggle>
-      <Dropdown.Menu className="custom-dropdown-menu rounded-4" style={{ minWidth: "120px", padding: "5px" }}>
+      <Dropdown.Menu className="custom-dropdown-menu rounded-4" style={{ minWidth: "10px", padding: "5px" }}>
         <Dropdown.Item onClick={props.onEdit}>Edit</Dropdown.Item>
         <Dropdown.Item className="text-danger" onClick={handleDelete}>
           Delete
