@@ -15,7 +15,19 @@ const root = createRoot(rootElement);
 
 root.render(
   <StrictMode>
-    <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
+    <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/" appearance={{
+    layout: {
+      logoPlacement: "none", // Hide Clerk's default logo
+      logoImageUrl: "/logo.png", // Optional: Add your custom logo
+      socialButtonsPlacement: "bottom"
+    },
+    variables: {
+      colorPrimary: "#007bff" // Customize primary color if needed
+    },
+    elements: {
+      headerTitle: "Sign in to Bookmark Manager" // Change the title
+    }
+  }}>
       {/* Check if user is signed in */}
       <SignedIn>
         {/* Show the app only when the user is signed in */}
